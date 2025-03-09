@@ -114,3 +114,14 @@ This plan ensures that the software solution effectively meets the client's need
 | 21 | Feb 27 | Security Check        | SQL Injection attempt on login               | SQL query as input | Login fails | Login fails | Pass   |
 | 22 | Mar 1  | UI Testing            | Ensure all UI elements are properly aligned  | Navigate through UI | UI looks correct | Some elements misaligned | Fail   |
 | 23 | Mar 3  | Retest UI Alignment   | Fix UI alignment issues                      | Navigate through UI | UI looks correct | UI looks correct | Pass   |
+
+## System Diagram:
+
+## Wireframe for GUI:
+
+## FLow Diagram:
+
+## ER Diagram for Databases:
+
+## UML Diagram for OOP:
+
