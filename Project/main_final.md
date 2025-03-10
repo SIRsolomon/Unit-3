@@ -83,7 +83,7 @@ The project will be considered successful if it meets the following criteria:
 
 This plan ensures that the software solution effectively meets the client's needs while being scalable for future improvements.
 
-#Critera B: 
+# Critera B: Solution Overview
 
 ## Test Plan
 
@@ -118,10 +118,96 @@ This plan ensures that the software solution effectively meets the client's need
 ## System Diagram:
 
 ## Wireframe for GUI:
+### Entity Diagram:
+![image](https://github.com/user-attachments/assets/fdee8109-e371-402f-83b6-b8bd04bdc430)
 
 ## FLow Diagram:
+### User Login:
+#### Code Segment:
+```.py
+def try_login(self):
+        print("trying to login")
+        LoginScreen.username = self.ids.username.text
+        password = self.ids.password.text
+        check_query = f"""SELECT * from users where username = '{LoginScreen.username}'"""
+        db = DatabaseManager("/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db")
+        result = db.search(check_query)
+        db.close()
+        if len(result) == 1:
+            hash = result[0][1]
+            if check_password(hash, password):
+                self.parent.current = "HomeScreen"#######
+        else:
+            self.ids.username.error = True
+            self.ids.username.helper_text = "Username or password error"
+            print("user doh exis") #change this later
+        self.ids.username.text = ""
+        self.ids.password.text = ""
+```
+#### Dirgram:
+![image](https://github.com/user-attachments/assets/11cd89d7-455d-43f5-b571-d511e721b9fd)
+### Register New Employee:
+#### Code Segment:
+```.py
+def register(self):
+        username = self.ids.username.text
+        password = self.ids.password.text
+
+        check_query = f"""SELECT * from employees where username = '{username}' or password = '{password}'"""
+        db = DatabaseManager("/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db")
+        result = db.search(check_query)
+        if len(result) == 0 and len(username)>0 and len(password)>0:
+            hashed_password = encryptPass(password)
+            db.run_save(f"""INSERT INTO employees (username, password) VALUES ('{username}', '{hashed_password}')""")
+            self.parent.current = "LoginScreen"
+        else:
+            self.ids.username.error = True
+            self.ids.username.helper_text = "Username already exists"
+        db.close()
+        self.ids.username.text = ""
+        self.ids.password.text = ""
+```
+#### Dirgram:
+![image](https://github.com/user-attachments/assets/648d0595-3ed0-49b4-8b8d-c7e14178fc1e)
+### Add New Menu Item:
+#### Code Segment:
+```.py
+ def add_menu_item(self):
+        if self.restaurant_id is None:
+            self.ids.restaurant.text = "Please select a restaurant first."
+            return
+
+        item_name = self.ids.item_name_input.text.strip()
+        stock = self.ids.stock_input.text.strip()
+        price = self.ids.price_input.text.strip()
+
+        if not item_name or not stock or not price:
+            self.ids.restaurant.text = "Please enter item name, stock and price."
+            return
+        try:
+            price = int(price)
+        except ValueError:
+            self.ids.restaurant.text = "Price must be a number."
+        try:
+            stock = int(stock)
+        except ValueError:
+            self.ids.restaurant.text = "Stock must be a number."
+            return
+
+        db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+        query = "INSERT INTO menu (restaurant_id, item_name, stock, price) VALUES (?, ?, ?, ?)"
+        db.execute(query, (self.restaurant_id, item_name, stock, price))
+        db.close()
+
+        self.ids.restaurant.text = f"Added {item_name} to menu."
+        self.show_menu()
+```
+#### Dirgram:
+![image](https://github.com/user-attachments/assets/68836cc1-6988-4124-8ea4-8b4c95e54630)
 
 ## ER Diagram for Databases:
+![image](https://github.com/user-attachments/assets/66c13909-881d-4d05-8fc4-89025a7604fd)
 
 ## UML Diagram for OOP:
+<img width="1070" alt="Screenshot 2025-03-10 at 9 53 27 PM" src="https://github.com/user-attachments/assets/af313079-a802-461e-8844-d5fe4b071493" />
 
