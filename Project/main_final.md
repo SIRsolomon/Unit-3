@@ -9,8 +9,29 @@ The key requirements of the client include:
 - Automatically restocking items that run out.
 - Providing separate functionalities for staff and customers with a login system.
 
-## Client Interview Transcripts (Copy to Apendix)
+## Proposed Solution
+To address these needs, a web-based platform will be developed using Python as the core programming language. Python has been chosen due to its flexibility, ease of use, and extensive library support, allowing for efficient and scalable development. It is also widely used in web development, making it a practical choice for this project. Alternative languages like JavaScript with Node.js or Java were considered, but Python’s simplicity, strong database integration, and rapid development capabilities made it the ideal option.
 
+The software will incorporate KivyMD for an intuitive and visually appealing user interface. KivyMD was chosen over alternatives like Tkinter or PyQt because it provides a modern Material Design aesthetic, making it more suitable for a web-based experience. Additionally, it integrates seamlessly with Python and is well-documented, making development smoother.
+
+For data management, SQLite will be used as the local database solution. While MySQL and PostgreSQL were considered, SQLite was selected because it is lightweight, requires minimal setup, and is sufficient for a single-user or small-business application like this. Since the application does not require extensive concurrent user access, SQLite provides an efficient and effective data storage solution.
+
+The platform will feature a login system that differentiates between customer and staff access. Customers will be able to browse through different restaurant branches, view available menu items, and place orders. A dictionary-based storage system will manage restaurant data dynamically, allowing seamless updates to stock levels. If an item is out of stock, an automatic restocking mechanism will replenish the inventory, preventing order failures and ensuring smooth business operations.
+
+A local database using SQLite will be integrated to store and retrieve user data, restaurant information, and order details. This ensures persistence of data across sessions while maintaining a lightweight and efficient storage solution.
+
+Overall, this web-based platform will enhance business efficiency by automating key processes, improving customer experience, and ensuring smooth inventory and order management. By leveraging Python’s robust capabilities, the proposed solution will meet the client’s needs effectively while allowing for future scalability and enhancements.
+
+## Success Criteria
+The project will be considered successful if it meets the following criteria:
+- Customers can browse restaurants and view menu availability dynamically.
+- A secure login system is implemented for both customers and staff.
+- The software integrates with a local database using SQLite for data management.
+- The UI is user-friendly and responsive, ensuring a smooth user experience.
+- Staff can update menu items and stock levels in real-time.
+- The login system should include secure password hashing to prevent unauthorized access.
+
+## Appendix
 ### First Interview
 
 #### Interviewer: Can you describe the kind of application you need for your business?
@@ -58,30 +79,6 @@ The key requirements of the client include:
 #### Interviewer: Any other final requests?
 
 **Client:** I trust my developer! Just make sure it runs smoothly and does what we talked about.
-
-## Proposed Solution
-To address these needs, a web-based platform will be developed using Python as the core programming language. Python has been chosen due to its flexibility, ease of use, and extensive library support, allowing for efficient and scalable development. It is also widely used in web development, making it a practical choice for this project. Alternative languages like JavaScript with Node.js or Java were considered, but Python’s simplicity, strong database integration, and rapid development capabilities made it the ideal option.
-
-The software will incorporate KivyMD for an intuitive and visually appealing user interface. KivyMD was chosen over alternatives like Tkinter or PyQt because it provides a modern Material Design aesthetic, making it more suitable for a web-based experience. Additionally, it integrates seamlessly with Python and is well-documented, making development smoother.
-
-For data management, SQLite will be used as the local database solution. While MySQL and PostgreSQL were considered, SQLite was selected because it is lightweight, requires minimal setup, and is sufficient for a single-user or small-business application like this. Since the application does not require extensive concurrent user access, SQLite provides an efficient and effective data storage solution.
-
-The platform will feature a login system that differentiates between customer and staff access. Customers will be able to browse through different restaurant branches, view available menu items, and place orders. A dictionary-based storage system will manage restaurant data dynamically, allowing seamless updates to stock levels. If an item is out of stock, an automatic restocking mechanism will replenish the inventory, preventing order failures and ensuring smooth business operations.
-
-A local database using SQLite will be integrated to store and retrieve user data, restaurant information, and order details. This ensures persistence of data across sessions while maintaining a lightweight and efficient storage solution.
-
-Overall, this web-based platform will enhance business efficiency by automating key processes, improving customer experience, and ensuring smooth inventory and order management. By leveraging Python’s robust capabilities, the proposed solution will meet the client’s needs effectively while allowing for future scalability and enhancements.
-
-## Success Criteria
-The project will be considered successful if it meets the following criteria:
-- Customers can browse restaurants and view menu availability dynamically.
-- A secure login system is implemented for both customers and staff.
-- The software integrates with a local database using SQLite for data management.
-- The UI is user-friendly and responsive, ensuring a smooth user experience.
-- Staff can update menu items and stock levels in real-time.
-- The login system should include secure password hashing to prevent unauthorized access.
-
-This plan ensures that the software solution effectively meets the client's needs while being scalable for future improvements.
 
 # Criterion B: Solution Overview
 ## Record of Tasks
@@ -149,7 +146,7 @@ This plan ensures that the software solution effectively meets the client's need
 ### Wireframe: 
 <img width="938" alt="Screenshot 2025-03-11 at 9 34 59 AM" src="https://github.com/user-attachments/assets/ab48f96a-fcae-47c8-a62c-87fadea2abd4" />
 
-### Entity Diagram:
+### Entity Diagram: (Remove Later)
 ![image](https://github.com/user-attachments/assets/fdee8109-e371-402f-83b6-b8bd04bdc430)
 
 ## FLow Diagram:
@@ -287,3 +284,154 @@ The project is a food delivery management system that allows customers to browse
 - Improved UI responsiveness and error messaging for better user experience.
 
 # Criterion C: Development
+## List of Features:
+
+- User Authentification with Password Hashing.
+- Database Management using SQLite
+- Menu Displays using KIVYmd
+- Order Tracking System
+  
+## Why these features?: 
+
+### **1. User Authentication with Password Hashing**
+#### **Problem/Purpose:**
+The system needs to securely authenticate users without storing passwords in plain text, ensuring protection against security threats like brute force attacks. To achieve this, I implemented password hashing using Passlib. This feature ensures that even if the database is compromised, user credentials remain secure.
+
+#### **Code:**
+```python
+from passlib.context import CryptContext
+
+pwd_config = CryptContext(schemes=["pbkdf2_sha256"], default="pbkdf2_sha256", pbkdf2_sha256__default_rounds=30000)
+
+def encryptPass(user_password):
+    return pwd_config.hash(user_password)
+
+def check_password(hashed_password, user_password):
+    return pwd_config.verify(user_password, hashed_password)
+```
+
+#### **Explanation:**
+- `pwd_config.hash(user_password)`: This line generates a hashed password using the PBKDF2 algorithm, making it secure against brute-force attacks.
+- `pwd_config.verify(user_password, hashed_password)`: This function compares the entered password with the stored hash to authenticate users securely.
+
+### **2. Database Management Using SQLite**
+#### **Problem/Purpose:**
+The system needs an efficient and structured way to store and retrieve data related to users, restaurants, menu items, and orders. SQLite was chosen due to its lightweight nature and ability to handle structured queries without requiring a separate database server.
+
+#### **Code:**
+```python
+import sqlite3
+
+class DatabaseManager:
+    def __init__(self, name: str):
+        self.connection = sqlite3.connect(name)
+        self.cursor = self.connection.cursor()
+
+    def search(self, query, params=()):
+        self.cursor.execute(query, params)
+        return self.cursor.fetchall()
+
+    def execute(self, query, params=()):
+        try:
+            self.cursor.execute(query, params)
+            self.connection.commit()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+
+    def close(self):
+        self.connection.close()
+```
+
+#### **Explanation:**
+- `sqlite3.connect(name)`: Establishes a connection to the database file, allowing for persistent data storage.
+- `search()`: Executes a SELECT query and returns results, allowing dynamic retrieval of data.
+- `execute()`: Handles INSERT, UPDATE, and DELETE queries while ensuring changes are committed to the database.
+- `close()`: Properly closes the database connection to prevent data corruption.
+
+### **3. Dynamic Menu Display with KivyMD**
+#### **Problem/Purpose:**
+The system needs a user-friendly way to display menu items dynamically, updating the UI based on restaurant selection. KivyMD was chosen for its flexibility in creating visually appealing Material Design components.
+
+#### **Code:**
+```python
+def show_menu(self):
+    if self.restaurant_id is None:
+        self.ids.restaurant.text = "Please select a restaurant first."
+        return
+
+    db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+    query = "SELECT item_name, price FROM menu WHERE restaurant_id = ?"
+    menu_items = db.search(query, (self.restaurant_id,))
+    db.close()
+
+    self.ids.menu_list.clear_widgets()
+    if not menu_items:
+        self.ids.menu_list.add_widget(OneLineListItem(text="No menu items found."))
+        return
+
+    for item_name, price in menu_items:
+        item = OneLineListItem(text=f"{item_name} - ${price:.2f}")
+        item.bind(on_release=lambda instance, name=item_name, price=price: self.add_to_cart(name, price))
+        self.ids.menu_list.add_widget(item)
+```
+
+#### **Explanation:**
+- `query = "SELECT item_name, price FROM menu WHERE restaurant_id = ?"`: Fetches the menu items for the selected restaurant.
+- `clear_widgets()`: Removes previous menu items to prevent duplication.
+- `for item_name, price in menu_items:`: Iterates over the retrieved menu items and dynamically updates the UI.
+- `OneLineListItem(text=f"{item_name} - ${price:.2f}")`: Creates a UI component displaying the menu item and price.
+
+### **4. Order Tracking System**
+#### **Problem/Purpose:**
+To ensure efficient order management, the system needs to allow employees to track and mark orders as completed. This feature prevents confusion between active and fulfilled orders and ensures that staff members have clear visibility of pending customer requests.
+
+#### **Code:**
+```python
+def mark_order_completed(self, order_id):
+    db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+    query = "UPDATE orders SET completed = 'Yes' WHERE id = ?"
+    db.execute(query, (order_id,))
+    db.close()
+    self.load_orders()
+
+def load_orders(self):
+    self.ids.orders_list.clear_widgets()
+    db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+    query = "SELECT id, username, User_Order, completed FROM orders WHERE completed = 'No'"
+    orders = db.search(query)
+    db.close()
+
+    if not orders:
+        self.ids.orders_list.add_widget(OneLineListItem(text="No Orders."))
+        return
+
+    for order_id, username, user_order, completed in orders:
+        order_text = f"({order_id}) {username}: {user_order} - Pending"
+        order_item = TwoLineListItem(text=order_text, secondary_text="Press to mark as completed")
+        order_item.bind(on_release=lambda instance, id=order_id: self.mark_order_completed(order_id))
+        self.ids.orders_list.add_widget(order_item)
+```
+
+#### **Explanation:**
+- `mark_order_completed(order_id)`: Updates the order status to 'Yes' in the database, signaling that it has been fulfilled.
+- `load_orders()`: Retrieves all pending orders from the database and displays them in the UI.
+- `order_item.bind(on_release=lambda instance, id=order_id: self.mark_order_completed(order_id))`: Allows employees to mark orders as completed by clicking on them.
+
+## Sources: 
+### KivyMD: 
+##### https://kivymd.readthedocs.io/en/latest/
+### SQLite: 
+##### https://www.youtube.com/watch?v=byHcYRpMgI4
+### Troubleshooting Logic: 
+##### https://kivycoder.com/using-mysql-database-with-kivy-python-kivy-gui-tutorial-56/
+### Diagram Maker:
+##### https://www.planttext.com/
+### Code for Diagram Maker:
+##### Chatgpt
+### More Digrams:
+##### Whimsical.com
+### Extra
+##### Past Programs developed during Unit 3.
+
+# Criterion D: Functionality
+## Video Overview of Project: 
