@@ -235,9 +235,9 @@ class HomeScreen(Screen):
 
 class EmployeeScreen(Screen):
     def on_enter(self):
-        self.restaurant_id = None  # Initialize the selected restaurant ID
+        self.restaurant_id = None  #Initialize the selected restaurant
         db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
-        query = "SELECT id, name FROM restaurants"  # Retrieve ID as well
+        query = "SELECT id, name FROM restaurants"  #Retrieve ID also
         self.restaurants = db.search(query)
         db.close()
 
@@ -257,7 +257,7 @@ class EmployeeScreen(Screen):
         self.menu.open()
 
     def button_pressed(self, restaurant_id, name):
-        self.restaurant_id = restaurant_id  # Store the selected restaurant ID
+        self.restaurant_id = restaurant_id  #Store the selected restauran
         self.ids.restaurant.text = f"You selected {name} (ID: {restaurant_id})"
         self.ids.dropdown_user.text = name
         self.menu.dismiss()
@@ -319,12 +319,10 @@ class EmployeeScreen(Screen):
 
 class OrdersScreen(Screen):
     def on_enter(self):
-        """Loads all orders from the database when the screen is entered."""
         self.load_orders()
 
     def load_orders(self):
         self.ids.orders_list.clear_widgets()  # Clear existing orders
-
         db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
         query = "SELECT id, username, User_Order, completed FROM orders WHERE completed = 'No'"
         orders = db.search(query)
@@ -347,7 +345,7 @@ class OrdersScreen(Screen):
         db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
         print(order_id)
         query = "UPDATE orders SET completed = 'Yes' WHERE id = ?"
-        db.execute(query, (order_id,))# passed as a tuple (whatever that means)
+        db.execute(query, (order_id,)) # passed as a tuple (whatever that means)
         db.close()
         self.load_orders()
 
