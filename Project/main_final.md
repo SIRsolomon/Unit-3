@@ -141,13 +141,11 @@ The project will be considered successful if it meets the following criteria:
 | 23 | Mar 3  | Retest UI Alignment   | Fix UI alignment issues                      | Navigate through UI | UI looks correct | UI looks correct | Pass   |
 
 ## System Diagram:
+<img width="1022" alt="Screenshot 2025-03-11 at 11 44 08 PM" src="https://github.com/user-attachments/assets/4d02dcd1-67c0-444f-ba4c-a288e5bebbcc" />
 
 ## Wireframe for GUI:
 ### Wireframe: 
 <img width="938" alt="Screenshot 2025-03-11 at 9 34 59 AM" src="https://github.com/user-attachments/assets/ab48f96a-fcae-47c8-a62c-87fadea2abd4" />
-
-### Entity Diagram: (Remove Later)
-![image](https://github.com/user-attachments/assets/fdee8109-e371-402f-83b6-b8bd04bdc430)
 
 ## FLow Diagram:
 ### User Login:
