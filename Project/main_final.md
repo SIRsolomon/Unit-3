@@ -9,7 +9,7 @@ The key requirements of the client include:
 - Automatically restocking items that run out.
 - Providing separate functionalities for staff and customers with a login system.
 
-## Client Interview Transcripts
+## Client Interview Transcripts (Copy to Apendix)
 
 ### First Interview
 
@@ -237,7 +237,7 @@ def register(self):
 ![image](https://github.com/user-attachments/assets/68836cc1-6988-4124-8ea4-8b4c95e54630)
 
 ## ER Diagram for Databases:
-![image](https://github.com/user-attachments/assets/66c13909-881d-4d05-8fc4-89025a7604fd)
+<img width="657" alt="Screenshot 2025-03-11 at 3 15 54 PM" src="https://github.com/user-attachments/assets/7a1d89da-73d7-43a1-b7ab-94ef7792b129" />
 
 ## UML Diagram for OOP:
 <img width="1070" alt="Screenshot 2025-03-10 at 9 53 27 PM" src="https://github.com/user-attachments/assets/af313079-a802-461e-8844-d5fe4b071493" />
