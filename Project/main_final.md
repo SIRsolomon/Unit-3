@@ -83,12 +83,40 @@ The project will be considered successful if it meets the following criteria:
 
 This plan ensures that the software solution effectively meets the client's needs while being scalable for future improvements.
 
-# Critera B: Solution Overview
+# Criterion B: Solution Overview
+## Record of Tasks
+| **Date**  | **Task Description** | **Planned Outcome** | **Time Estimate** | **Target Completion Date** | **Criterion** |
+|-----------|----------------------|----------------------|-------------------|--------------------------|--------------|
+| Feb 3  | **Initial Client Interview** | Gather requirements and expectations from the client. | 2 hours | Feb 3 | Criterion A |
+| Feb 4  | **Refining Problem Definition** | Create a clear problem statement based on client interviews. | 2 hours | Feb 4 | Criterion A |
+| Feb 5  | **Drafting the Proposed Solution** | Outline software requirements and technologies to be used. | 3 hours | Feb 5 | Criterion A |
+| Feb 6  | **Second Client Interview** | Validate proposed solution with client and gather additional requirements. | 2 hours | Feb 6 | Criterion A |
+| Feb 7  | **Finalizing Criterion A Documentation** | Complete problem definition, proposed solution, and success criteria. | 3 hours | Feb 7 | Criterion A |
+| Feb 8  | **Start Criterion B - Solution Overview** | Create system diagrams, wireframes, and flowcharts. | 4 hours | Feb 9 | Criterion B |
+| Feb 10 | **Flowchart for Login System** | Design flowchart to represent authentication process. | 3 hours | Feb 10 | Criterion B |
+| Feb 11 | **Flowchart for Adding New Menu Items** | Visualize stock updates. | 3 hours | Feb 11 | Criterion B |
+| Feb 12 | **Flowchart for Employee Registration** | Outline how new employees are added. | 3 hours | Feb 12 | Criterion B |
+| Feb 13 | **Wireframes for UI** | Create layout designs for user and staff interfaces. | 4 hours | Feb 13 | Criterion B |
+| Feb 14 | **Database Schematics & ER Diagram** | Design the database structure and relationships. | 4 hours | Feb 14 | Criterion B |
+| Feb 15 | **Begin Criterion C - Development** | Initialize SQLite database with users, restaurants, menu, and orders. | 3 hours | Feb 15 | Criterion C |
+| Feb 16 | **Set Up UI Framework (KivyMD)** | Develop base UI components for login, home, and menu screens. | 4 hours | Feb 16 | Criterion C |
+| Feb 17 | **Implement User Registration System** | Enable users to create accounts with hashed passwords. | 3 hours | Feb 17 | Criterion C |
+| Feb 18 | **Implement Login System** | Develop authentication system for customers and employees. | 4 hours | Feb 18 | Criterion C |
+| Feb 19 | **Test & Debug Login System** | Ensure authentication works correctly with database queries. | 3 hours | Feb 19 | Criterion C |
+| Feb 20 | **Develop Menu Display Feature** | Allow users to browse restaurant menus dynamically. | 4 hours | Feb 20 | Criterion C |
+| Feb 21 | **Implement Cart System** | Enable users to add/remove items from cart. | 4 hours | Feb 21 | Criterion C |
+| Feb 22 | **Implement Order Placement & Stock Updates** | Ensure stock is deducted when an order is placed. | 4 hours | Feb 22 | Criterion C |
+| Feb 23 | **Test & Debug Order Placement** | Fix errors related to stock updates and ordering. | 3 hours | Feb 23 | Criterion C |
+| Feb 24 | **Implement Auto-Restocking Feature** | Ensure stock is replenished when reaching zero. | 4 hours | Feb 24 | Criterion C |
+| Feb 25 | **Develop Employee Menu Management System** | Allow staff to add/update menu items. | 4 hours | Feb 25 | Criterion C |
+| Feb 26 | **Restrict Price Editing to Admins** | Implement password-protected price modification. | 3 hours | Feb 26 | Criterion C |
+| Feb 27 | **Security Implementation** | Protect against SQL injection and secure queries. | 4 hours | Feb 27 | Criterion C |
+| Feb 28 | **Testing & Debugging Phase** | Conduct full system testing and fix issues. | 5 hours | Mar 1 | Criterion C |
+| Mar 2  | **Final UI and UX Testing** | Ensure app is fully functional and user-friendly. | 4 hours | Mar 2 | Criterion C |
+| Mar 3  | **Recording Demo Video** | Record a 4-minute video showcasing the software's functionality and testing results. | 2 hours | Mar 3 | Criterion D |
+| Mar 3  | **Final Documentation & Submission** | Complete Criterion C documentation with explanations and screenshots. | 6 hours | Mar 3 | Criterion A, B, C, D |
 
 ## Test Plan
-
-### Duration of Development: February 3, 2025 – March 3, 2025
-
 | Test Case # | Date | Feature | Test Scenario | Input | Expected Output | Actual Output | Pass/Fail |
 |---|------------|----------------------|------------------------------------------------|------------------|---------------------------|------------------|-----------|
 | 1  | Feb 3  | Database Setup        | Ensure database initializes correctly        | Run app         | Tables created            | Tables created   | Pass   |
@@ -118,6 +146,9 @@ This plan ensures that the software solution effectively meets the client's need
 ## System Diagram:
 
 ## Wireframe for GUI:
+### Wireframe: 
+<img width="938" alt="Screenshot 2025-03-11 at 9 34 59 AM" src="https://github.com/user-attachments/assets/ab48f96a-fcae-47c8-a62c-87fadea2abd4" />
+
 ### Entity Diagram:
 ![image](https://github.com/user-attachments/assets/fdee8109-e371-402f-83b6-b8bd04bdc430)
 
@@ -211,3 +242,48 @@ def register(self):
 ## UML Diagram for OOP:
 <img width="1070" alt="Screenshot 2025-03-10 at 9 53 27 PM" src="https://github.com/user-attachments/assets/af313079-a802-461e-8844-d5fe4b071493" />
 
+## Data Storage Examples:
+### Menu Items:
+<img width="858" alt="Screenshot 2025-03-11 at 9 57 41 AM" src="https://github.com/user-attachments/assets/d4c16c20-588a-4595-b74d-134b7426f8df" />
+
+### Users:
+<img width="492" alt="Screenshot 2025-03-11 at 9 58 23 AM" src="https://github.com/user-attachments/assets/debdac9c-c286-46cb-a94b-1cb3d0cc3d1b" />
+
+### Restaurants:
+<img width="328" alt="Screenshot 2025-03-11 at 9 58 48 AM" src="https://github.com/user-attachments/assets/8c98d1ee-c99b-4fb5-a1fe-7ab165522d14" />
+
+## Developmemt Process:
+### **Purpose:**
+The project is a food delivery management system that allows customers to browse restaurant menus, place orders, and track their purchases. It also provides employees with tools to manage inventory and order processing while ensuring secure user authentication.
+
+### **Development Steps:**
+
+#### **Setup and Testing:**
+- Configured SQLite database to store users, restaurants, menu items, and orders.
+- Implemented KivyMD framework for the user interface.
+- Developed login authentication using hashed passwords with Passlib.
+
+#### **User Authentication:**
+- Created a registration and login system for both customers and employees.
+- Implemented error handling for incorrect login attempts.
+- Restricted certain actions (e.g., price editing) to admin users with password protection.
+
+#### **Menu and Order Management:**
+- Designed a menu display system that dynamically fetches items from the database.
+- Implemented cart functionality for adding and removing items before ordering.
+- Ensured stock levels update correctly when an order is placed.
+
+#### **Employee Features:**
+- Enabled employees to modify stock levels and menu availability.
+- Added an order-tracking system where employees can mark orders as completed.
+
+#### **Security and Data Integrity:**
+- Implemented SQL injection protection by using parameterized queries.
+- Ensured password security using encryption and secure storage.
+
+#### **Testing and Debugging:**
+- Conducted multiple test cases to ensure smooth functionality.
+- Fixed login authentication bugs and stock update inconsistencies.
+- Improved UI responsiveness and error messaging for better user experience.
+
+# Criterion C: Development
