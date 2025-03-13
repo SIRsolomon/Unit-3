@@ -88,6 +88,7 @@ The project will be considered successful if it meets the following criteria:
 <img width="938" alt="Screenshot 2025-03-11 at 9 34 59 AM" src="https://github.com/user-attachments/assets/ab48f96a-fcae-47c8-a62c-87fadea2abd4" />
 
 - Figure 2: Wireframe diagram showing GUI relationships.
+  
 ## FLow Diagram:
 ### User Login:
 #### Code Segment:
@@ -115,3 +116,280 @@ def try_login(self):
 ![image](https://github.com/user-attachments/assets/11cd89d7-455d-43f5-b571-d511e721b9fd)
 
 - Figure 3: Diagram showing the above code segment.
+### Add New Menu Item:
+#### Code Segment:
+```.py
+ def add_menu_item(self):
+        if self.restaurant_id is None:
+            self.ids.restaurant.text = "Please select a restaurant first."
+            return
+
+        item_name = self.ids.item_name_input.text.strip()
+        stock = self.ids.stock_input.text.strip()
+        price = self.ids.price_input.text.strip()
+
+        if not item_name or not stock or not price:
+            self.ids.restaurant.text = "Please enter item name, stock and price."
+            return
+        try:
+            price = int(price)
+        except ValueError:
+            self.ids.restaurant.text = "Price must be a number."
+        try:
+            stock = int(stock)
+        except ValueError:
+            self.ids.restaurant.text = "Stock must be a number."
+            return
+
+        db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+        query = "INSERT INTO menu (restaurant_id, item_name, stock, price) VALUES (?, ?, ?, ?)"
+        db.execute(query, (self.restaurant_id, item_name, stock, price))
+        db.close()
+
+        self.ids.restaurant.text = f"Added {item_name} to menu."
+        self.show_menu()
+```
+#### Dirgram:
+![image](https://github.com/user-attachments/assets/68836cc1-6988-4124-8ea4-8b4c95e54630)
+
+- Figure 4: Diagram showing the above code segment.
+
+### Load Orders:
+#### Code Segment:
+```.py
+    def load_orders(self):
+        self.ids.orders_list.clear_widgets()  # Clear existing orders
+        db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+        query = "SELECT id, username, User_Order, completed FROM orders WHERE completed = 'No'"
+        orders = db.search(query)
+        db.close()
+
+        if not orders:
+            self.ids.orders_list.add_widget(OneLineListItem(text="No Orders."))
+            return
+        for order_id, username, user_order, completed in orders:
+            if completed == "Yes":
+                order_status = "Completed"
+            else:
+                order_status = "Pending"
+            order_text = f"({order_id}) {username}: {user_order} - {order_status}"
+            order_item = TwoLineListItem(text=order_text, secondary_text="Press to mark as completed")
+            order_item.bind(on_release=lambda instance, id=order_id: self.mark_order_completed(order_id))
+            self.ids.orders_list.add_widget(order_item) 
+```
+#### Dirgram:
+<img width="614" alt="Screenshot 2025-03-14 at 8 23 21 AM" src="https://github.com/user-attachments/assets/0bb7e605-36c5-409f-9309-0983b58d45d9" />
+
+- Figure 5: Diagram showing the above code segment.
+
+## ER Diagram:
+
+- Figure 6: Entity relationship diagram.
+  
+## UML Diagram for OOP:
+<img width="1070" alt="Screenshot 2025-03-10 at 9 53 27 PM" src="https://github.com/user-attachments/assets/af313079-a802-461e-8844-d5fe4b071493" />
+
+- Figure 7: Diagram showing the relationships in my OOP.
+## Data Storage Examples:
+### Menu Items:
+<img width="858" alt="Screenshot 2025-03-11 at 9 57 41 AM" src="https://github.com/user-attachments/assets/d4c16c20-588a-4595-b74d-134b7426f8df" />
+
+- Figure 8: Example data for menu items.
+### Users:
+<img width="492" alt="Screenshot 2025-03-11 at 9 58 23 AM" src="https://github.com/user-attachments/assets/debdac9c-c286-46cb-a94b-1cb3d0cc3d1b" />
+
+- Figure 9: Example data for users.
+### Restaurants:
+<img width="328" alt="Screenshot 2025-03-11 at 9 58 48 AM" src="https://github.com/user-attachments/assets/8c98d1ee-c99b-4fb5-a1fe-7ab165522d14" />
+
+- Figure 10: Example data for restaurants.
+  
+## Developmemt Process:
+### **Purpose:**
+The project is a food delivery management system that allows customers to browse restaurant menus, place orders, and track their purchases. It also provides employees with tools to manage inventory and order processing while ensuring secure user authentication.
+
+### **Development Steps:**
+
+#### **Setup and Testing:**
+- Configured SQLite database to store users, restaurants, menu items, and orders.
+- Implemented KivyMD framework for the user interface.
+- Developed login authentication using hashed passwords with Passlib.
+
+#### **User Authentication:**
+- Created a registration and login system for both customers and employees.
+- Implemented error handling for incorrect login attempts.
+- Restricted certain actions (e.g., price editing) to admin users with password protection.
+
+#### **Menu and Order Management:**
+- Designed a menu display system that dynamically fetches items from the database.
+- Implemented cart functionality for adding and removing items before ordering.
+- Ensured stock levels update correctly when an order is placed.
+
+#### **Employee Features:**
+- Enabled employees to modify stock levels and menu availability.
+- Added an order-tracking system where employees can mark orders as completed.
+
+#### **Security and Data Integrity:**
+- Implemented SQL injection protection by using parameterized queries.
+- Ensured password security using encryption and secure storage.
+
+#### **Testing and Debugging:**
+- Conducted multiple test cases to ensure smooth functionality.
+- Fixed login authentication bugs and stock update inconsistencies.
+- Improved UI responsiveness and error messaging for better user experience.
+
+# Criterion C: Development
+
+## List of Features:
+
+- User Authentication with Password Hashing
+- Database Management using SQLite
+- Menu Display using KivyMD
+- Order Tracking System
+
+## Why these features?
+
+### **1. User Authentication with Password Hashing**
+#### **Problem/Purpose:**
+In the early stages of development, I realized that storing passwords in plain text was a major security risk. To prevent brute force attacks and protect user data, I implemented Passlib for password hashing. This was a challenging aspect as I had to learn about hashing algorithms and the PBKDF2 standard.
+
+#### **Code:**
+```python
+from passlib.context import CryptContext
+
+pwd_config = CryptContext(schemes=["pbkdf2_sha256"], default="pbkdf2_sha256", pbkdf2_sha256__default_rounds=30000)
+
+def encryptPass(user_password):
+    return pwd_config.hash(user_password)
+
+def check_password(hashed_password, user_password):
+    return pwd_config.verify(user_password, hashed_password)
+```
+
+#### **Challenges and Solutions:**
+- **Challenge:** Understanding how to store the hash in the database and verify it during login.
+- **Note:** Initially, I tried manually encrypting the passwords with basic Python hash functions, but this was not long and inefficient.
+- **Solution:** I researched the Passlib library and implemented a simple yet secure function for both hashing and verification.
+
+#### **Skills Demonstrated:**
+- Secure handling of user data
+- Working with cryptographic libraries
+
+---
+
+### **2. Database Management Using SQLite**
+#### **Problem/Purpose:**
+To efficiently handle user data, restaurant menus, and order history, I opted for SQLite due to its simplicity and compatibility with KivyMD.
+
+#### **Code:**
+```python
+import sqlite3
+
+class DatabaseManager:
+    def __init__(self, name: str):
+        self.connection = sqlite3.connect(name)
+        self.cursor = self.connection.cursor()
+
+    def search(self, query, params=()):
+        self.cursor.execute(query, params)
+        return self.cursor.fetchall()
+
+    def execute(self, query, params=()):
+        try:
+            self.cursor.execute(query, params)
+            self.connection.commit()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+
+    def close(self):
+        self.connection.close()
+```
+
+#### **Challenges and Solutions:**
+- **Challenge:** Preventing SQL injection when handling user input.
+- **Note:** Using the sql while the code was running took me a while to get right and I had to take andvantage of lambda functions which I learned to use.
+- **Solution:** I switched to using parameterized queries to secure the database.
+
+#### **Skills Demonstrated:**
+- Database management
+- Secure handling of data input
+
+---
+
+### **3. Dynamic Menu Display with KivyMD**
+#### **Problem/Purpose:**
+I needed to display the menu dynamically based on the restaurant selected by the user. KivyMD allowed me to create a user-friendly interface that updates in real time.
+
+#### **Code:**
+```python
+def show_menu(self):
+    if self.restaurant_id is None:
+        self.ids.restaurant.text = "Please select a restaurant first."
+        return
+
+    db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+    query = "SELECT item_name, price FROM menu WHERE restaurant_id = ?"
+    menu_items = db.search(query, (self.restaurant_id,))
+    db.close()
+
+    self.ids.menu_list.clear_widgets()
+    if not menu_items:
+        self.ids.menu_list.add_widget(OneLineListItem(text="No menu items found."))
+        return
+
+    for item_name, price in menu_items:
+        item = OneLineListItem(text=f"{item_name} - ${price:.2f}")
+        item.bind(on_release=lambda instance, name=item_name, price=price: self.add_to_cart(name, price))
+        self.ids.menu_list.add_widget(item)
+```
+
+#### **Challenges and Solutions:**
+- **Challenge:** Preventing duplication of menu items when switching between restaurants.
+- **Note:** Initially, I did not know to clear the previous menu items, leading to duplicated listings when switching between restaurants and infinite menus.
+- **Solution:** Using `clear_widgets()` to refresh the UI before displaying the new menu.
+
+#### **Skills Demonstrated:**
+- UI/UX development
+- Real-time data display
+
+---
+
+### **4. Order Tracking System**
+#### **Problem/Purpose:**
+To ensure that employees can keep track of pending orders and mark them as completed, I implemented an order tracking system that interacts with the database.
+
+#### **Code:**
+```python
+def mark_order_completed(self, order_id):
+    db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+    query = "UPDATE orders SET completed = 'Yes' WHERE id = ?"
+    db.execute(query, (order_id,))
+    db.close()
+    self.load_orders()
+
+def load_orders(self):
+    self.ids.orders_list.clear_widgets()
+    db = DatabaseManager('/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db')
+    query = "SELECT id, username, User_Order, completed FROM orders WHERE completed = 'No'"
+    orders = db.search(query)
+    db.close()
+
+    if not orders:
+        self.ids.orders_list.add_widget(OneLineListItem(text="No Orders."))
+        return
+
+    for order_id, username, user_order, completed in orders:
+        order_text = f"({order_id}) {username}: {user_order} - Pending"
+        order_item = TwoLineListItem(text=order_text, secondary_text="Press to mark as completed")
+        order_item.bind(on_release=lambda instance, id=order_id: self.mark_order_completed(order_id))
+        self.ids.orders_list.add_widget(order_item)
+```
+
+#### **Challenges and Solutions:**
+- **Challenge:** Avoiding data duplication and ensuring the UI updates after marking an order as complete.
+- **Note:** I updated the database without reloading the UI so even though it was not a widget I still had duplicated data and infinite menus again.
+- **Solution:** Using the `load_orders()` function to refresh the order list after updating the database.
+
+#### **Skills Demonstrated:**
+- Backend-frontend interaction
+- Real-time database updates
