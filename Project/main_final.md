@@ -79,3 +79,39 @@ The project will be considered successful if it meets the following criteria:
 | 3 | Database Integration | 1. Open the application and navigate to the registration screen.<br>2. Enter any new username in the "Username" input field.<br>3. Enter any password in the "Password" input field.<br>4. Tap the "Register" button.<br>5. Close the application by pressing escape and open the SQLite database file.<br>6. Run a query to check if the new username exists in the "users" table by entering [Select * from users].<br>7. Verify that the new user’s data is stored in the database. | The new account is successfully stored in the database. |
 | 4 | Staff Menu Management | 1. Open the application and log in as a staff member, by selecting 'admin' then login with username: empl and password: pass.<br>2. Select any restaurant of your choice in the by using the select restaurant drop down menu.<br>3. Tap "View Menu" to access the menu.<br>4. Select an existing menu item by tapping on it.<br>5. Using the entry fields at the bottom of the screen enter 'enter item name': Bread, 'enter stock': 10, 'enter price': 10.<br>6. Tap the "Add Menu Item" button.<br>7. Look at the menu screen and verify that the stock update is reflected in the system. | The updated stock value is reflected in the system. |
 | 5 | Password Security | 1. Open the application and navigate to the registration screen by pressing register.<br>2. Register a new user by entering any username and password in the respective fields.<br>3. Close the application and open the SQLite database file.<br>4. Run a query to check the stored password in the "users" table using [Select * from users].<br>5. Verify that the username appears but next to it is a random string of text that was not entered which shows that the password is hashed and not in plaintext. | Passwords are hashed and not stored in plaintext. |
+
+## System Diagram:
+<img width="1022" alt="Screenshot 2025-03-11 at 11 44 08 PM" src="https://github.com/user-attachments/assets/4d02dcd1-67c0-444f-ba4c-a288e5bebbcc" />
+
+- Figure 1: System diagram of the program.
+## Wireframe: 
+<img width="938" alt="Screenshot 2025-03-11 at 9 34 59 AM" src="https://github.com/user-attachments/assets/ab48f96a-fcae-47c8-a62c-87fadea2abd4" />
+
+- Figure 2: Wireframe diagram showing GUI relationships.
+## FLow Diagram:
+### User Login:
+#### Code Segment:
+```.py
+def try_login(self):
+        print("trying to login")
+        LoginScreen.username = self.ids.username.text
+        password = self.ids.password.text
+        check_query = f"""SELECT * from users where username = '{LoginScreen.username}'"""
+        db = DatabaseManager("/Users/ssolomon/PycharmProjects/Unit 3/Project/Your_bizznes.db")
+        result = db.search(check_query)
+        db.close()
+        if len(result) == 1:
+            hash = result[0][1]
+            if check_password(hash, password):
+                self.parent.current = "HomeScreen"#######
+        else:
+            self.ids.username.error = True
+            self.ids.username.helper_text = "Username or password error"
+            print("user doh exis") #change this later
+        self.ids.username.text = ""
+        self.ids.password.text = ""
+```
+#### Dirgram:
+![image](https://github.com/user-attachments/assets/11cd89d7-455d-43f5-b571-d511e721b9fd)
+
+- Figure 3: Diagram showing the above code segment.
