@@ -183,6 +183,7 @@ def try_login(self):
 - Figure 5: Diagram showing the above code segment.
 
 ## ER Diagram:
+<img width="931" alt="Screenshot 2025-03-14 at 0 46 22 PM" src="https://github.com/user-attachments/assets/dc6f4df8-f710-4349-b9e7-c84a177eb692" />
 
 - Figure 6: Entity relationship diagram.
   
@@ -393,3 +394,68 @@ def load_orders(self):
 #### **Skills Demonstrated:**
 - Backend-frontend interaction
 - Real-time database updates
+
+## Sources: 
+### KivyMD: 
+##### https://kivymd.readthedocs.io/en/latest/
+### SQLite: 
+##### https://www.youtube.com/watch?v=byHcYRpMgI4
+### Troubleshooting Logic: 
+##### https://kivycoder.com/using-mysql-database-with-kivy-python-kivy-gui-tutorial-56/
+### Diagram Maker:
+##### https://www.planttext.com/
+### Code for Diagram Maker:
+##### Chatgpt
+### More Digrams:
+##### Whimsical.com
+### Extra
+##### Past Programs developed during Unit 3.
+
+## Appendix
+### First Interview
+
+#### Interviewer: Can you describe the kind of application you need for your business?
+
+**Client:** Okay, so I own a small restaurant team. I have two restaurants, and I want an app that allows customers to order food from either location. Just something simple where they can browse the menu and place an order.
+
+#### Interviewer: Do you need any features for managing the restaurant menu?
+
+**Client:** Yeah, I want employees to be able to add new menu items, set prices, and maybe even upload a picture for each item. It should be easy for them to update the menu when needed.
+
+#### Interviewer: You mentioned something about locations—can you clarify that?
+
+**Client:** Oh yeah, it would be nice if we could add additional restaurant locations in the app if we expand in the future. Also, I was thinking about adding some sort of way to check the customer’s distance—like if they’re too far or too close, we could calculate delivery fees based on that.
+
+#### Interviewer: Would you like a system to track customer orders?
+
+**Client:** Yeah, keeping track of users and their past orders would be great. Maybe something like a simple order history so we know what people are ordering most. Also, it would be useful for employees to have access to orders so they can mark them as completed when they’re done.
+
+#### Interviewer: Do you want any kind of user login system?
+
+**Client:** Yes, definitely. We need to keep track of users, but we also want to make sure we don’t store too much personal information. Just enough for them to log in and place orders without any legal issues.
+
+### Second Interview
+
+#### Interviewer: Now that we have an initial idea, can you go into more detail about the functionality you want?
+
+**Client:** Yeah, so basically, I want an app that's like a DoorDash clone. Customers should be able to choose from a list of restaurants—since I have multiple locations—and then select specific food items. The app should also check if an item is in stock before allowing them to order. If it’s not in stock, they shouldn’t be able to buy it.
+
+#### Interviewer: Would you like a delivery cost feature?
+
+**Client:** Yeah, I was thinking that customers should be able to input their distance from the restaurant, and based on that, we can calculate a delivery fee. Something like $20 per mile, since we’re on a hill and delivery is a bit tricky.
+
+#### Interviewer: You mentioned a membership system before. Can you clarify how that should work?
+
+**Client:** Right, I want a point-based membership system where the more a customer orders, the more points they get. For example, after 10, 20, or 30 orders, they could get a reward—maybe free chicken nuggets or something like that. The points should reset on the first day of every month.
+
+#### Interviewer: Do you need specific permissions for staff?
+
+**Client:** Yes, staff members should be able to update the availability of menu items, but they shouldn't be able to change prices unless they enter a special password. Also, staff should have the option to switch to client mode so they can place orders too.
+
+#### Interviewer: Would you like analytics or tracking features?
+
+**Client:** Yeah, I think it would be nice to have some way of seeing how many users there are and maybe a distribution map showing how far they are from the restaurant.
+
+#### Interviewer: Any other final requests?
+
+**Client:** I trust my developer! Just make sure it runs smoothly and does what we talked about.
